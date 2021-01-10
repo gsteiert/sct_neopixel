@@ -106,33 +106,33 @@ void sctpix_show(void){
   _sctpix_count = 0;
   NEO_SCT->STATE = _sctpix_start; 
   if (_sctpix_size[0]) { NEO_SCT->EV[NEO_EVENT_CH_0].STATE = (~_sctpix_data[0][0]); }
-  if (_sctpix_size[1]) { NEO_SCT->EV[NEO_EVENT_CH_0].STATE = (~_sctpix_data[1][0]); }
-  if (_sctpix_size[2]) { NEO_SCT->EV[NEO_EVENT_CH_0].STATE = (~_sctpix_data[2][0]); }
-  if (_sctpix_size[3]) { NEO_SCT->EV[NEO_EVENT_CH_0].STATE = (~_sctpix_data[3][0]); }
-  if (_sctpix_size[4]) { NEO_SCT->EV[NEO_EVENT_CH_0].STATE = (~_sctpix_data[4][0]); }
-  if (_sctpix_size[5]) { NEO_SCT->EV[NEO_EVENT_CH_0].STATE = (~_sctpix_data[5][0]); }
-  if (_sctpix_size[6]) { NEO_SCT->EV[NEO_EVENT_CH_0].STATE = (~_sctpix_data[6][0]); }
-  if (_sctpix_size[7]) { NEO_SCT->EV[NEO_EVENT_CH_0].STATE = (~_sctpix_data[7][0]); }
-  if (_sctpix_size[8]) { NEO_SCT->EV[NEO_EVENT_CH_0].STATE = (~_sctpix_data[8][0]); }
-  if (_sctpix_size[9]) { NEO_SCT->EV[NEO_EVENT_CH_0].STATE = (~_sctpix_data[9][0]); }
+  if (_sctpix_size[1]) { NEO_SCT->EV[NEO_EVENT_CH_1].STATE = (~_sctpix_data[1][0]); }
+  if (_sctpix_size[2]) { NEO_SCT->EV[NEO_EVENT_CH_2].STATE = (~_sctpix_data[2][0]); }
+  if (_sctpix_size[3]) { NEO_SCT->EV[NEO_EVENT_CH_3].STATE = (~_sctpix_data[3][0]); }
+  if (_sctpix_size[4]) { NEO_SCT->EV[NEO_EVENT_CH_4].STATE = (~_sctpix_data[4][0]); }
+  if (_sctpix_size[5]) { NEO_SCT->EV[NEO_EVENT_CH_5].STATE = (~_sctpix_data[5][0]); }
+  if (_sctpix_size[6]) { NEO_SCT->EV[NEO_EVENT_CH_6].STATE = (~_sctpix_data[6][0]); }
+  if (_sctpix_size[7]) { NEO_SCT->EV[NEO_EVENT_CH_7].STATE = (~_sctpix_data[7][0]); }
+  if (_sctpix_size[8]) { NEO_SCT->EV[NEO_EVENT_CH_8].STATE = (~_sctpix_data[8][0]); }
+  if (_sctpix_size[9]) { NEO_SCT->EV[NEO_EVENT_CH_9].STATE = (~_sctpix_data[9][0]); }
   NEO_SCT->CTRL = SCT_CTRL_CLRCTR_L_MASK;
 }
 
 bool sctpix_canShow(void) {
-  return ~_sctpix_busy;
+  return !_sctpix_busy;
 }
 
-void sctpix_addCh(uinit32_t ch, uint32_t *data, uint32_t size) {
+void sctpix_addCh(uint32_t ch, uint32_t *data, uint32_t size) {
   if (ch < NEO_SCT_OUTPUTS) {
     _sctpix_data[ch] = data;
     _sctpix_size[ch] = size;
-    if (size > _sctpix_maxcount) {
+    if (size > _sctpix_max_count) {
       _sctpix_max_count = size;
     }
   }
 }
 
-void sctpix_rmCh(uinit32_t ch){
+void sctpix_rmCh(uint32_t ch){
   if (ch < NEO_SCT_OUTPUTS){
     // clear channel configuration
     _sctpix_data[ch] = NULL;
