@@ -38,6 +38,7 @@ uint32_t          _sctpix_max_count = 0;
 uint32_t          _sctpix_start = 23;
 volatile uint32_t _sctpix_count = 0;
 volatile bool     _sctpix_busy = false;
+bool              _sctpix_syncUpdate = true;
 
 
 //--------------------------------------------------------------------+
@@ -90,7 +91,7 @@ void SCT0_DriverIRQHandler(void){
 void sctpix_setPixel(uint32_t ch, uint32_t pixel, uint32_t color){
   if (ch < NEO_SCT_OUTPUTS) {
     if (pixel < _sctpix_size[ch]) {
-      if (neo->syncUpdate) {
+      if (_sctpix_syncUpdate) {
         while (_sctpix_busy) { __NOP(); }
       }
       _sctpix_data[ch][pixel] = color;
@@ -153,6 +154,7 @@ void sctpix_init(uint32_t neoPixelType) {
 // Set start state based on pixel type (TBD)
   _sctpix_start = 23;
   _sctpix_max_count = 0;
+  _sctpix_syncUpdate = true;
   for (uint32_t i=0; i < NEO_SCT_OUTPUTS; i++) {
     _sctpix_data[i] = NULL;
     _sctpix_size[i] = 0;
