@@ -98,7 +98,7 @@ void sctpix_setPixel(uint32_t ch, uint32_t pixel, uint32_t color){
   }
 }
 
-void sctpix_refresh(void){
+void sctpix_show(void){
 //  while (NEO_SCT->CTRL & SCT_CTRL_HALT_L_MASK);
   while (_sctpix_busy) {__NOP();}
   _sctpix_busy = true;
@@ -115,6 +115,10 @@ void sctpix_refresh(void){
   if (_sctpix_size[8]) { NEO_SCT->EV[NEO_EVENT_CH_0].STATE = (~_sctpix_data[8][0]); }
   if (_sctpix_size[9]) { NEO_SCT->EV[NEO_EVENT_CH_0].STATE = (~_sctpix_data[9][0]); }
   NEO_SCT->CTRL = SCT_CTRL_CLRCTR_L_MASK;
+}
+
+bool sctpix_canShow(void) {
+  return ~_sctpix_busy;
 }
 
 void sctpix_addCh(uinit32_t ch, uint32_t *data, uint32_t size) {
