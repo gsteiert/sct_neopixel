@@ -5,4 +5,4 @@ This library uses the State Configurable Timer (SCTimer or SCT) found in several
 
 ## Theory of operation
 
-This driver uses the states to encode the bit that is being output. 
+This driver 
