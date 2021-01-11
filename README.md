@@ -9,12 +9,12 @@ This driver utilizes the unique features of the State Configurable Timer to gene
 
 5 match regsiters are used to trigger events:
 
- * NEO_MATCH_RISE triggers NEO_EVENT_RISE in all states to start the pulse
- * NEO_MATCH_0 conditionally triggers NEO_EVENT_CHx based on the data being transmitted in each channel
- * NEO_MATCH_1 triggers NEO_EVENT_FALL_1 in all states to finish the pulse
- * NEO_MATCH_PERIOD triggers NEO_EVENT_NEXT in all but STATE 0 to reset the counter and advance to the next STATE(bit)
- * NEO_MATCH_PERIOD triggers NEO_EVENT_LAST in STATE 0 which fires an interrupt and halts the timer at the end of a pixel
- * NEO_MATCH_RESET triggers NEO_EVENT_RESET to fire an interrupt and halt the timer at the end of the transaction
+ * `NEO_MATCH_RISE` triggers `NEO_EVENT_RISE` in all states to start the pulse
+ * `NEO_MATCH_0` conditionally triggers `NEO_EVENT_CHx` based on the data being transmitted in each channel
+ * `NEO_MATCH_1` triggers `NEO_EVENT_FALL_1` in all states to finish the pulse
+ * `NEO_MATCH_PERIOD` triggers `NEO_EVENT_NEXT` in all but STATE 0 to reset the counter and advance to the next STATE(bit)
+ * `NEO_MATCH_PERIOD` triggers `NEO_EVENT_LAST` in STATE 0 which fires an interrupt and halts the timer at the end of a pixel
+ * `NEO_MATCH_RESET` triggers `NEO_EVENT_RESET` to fire an interrupt and halt the timer at the end of the transaction
 
 The interrupt handler is triggered at the end of each pixel.  If there are still pixels remaining on any of the configured channels, it updates the STATES that will trigger an early fall on each of the channel events to indicate a 0, then resets the counter and advances back to the top state.  If there are no pixels remaining, it lets the counter continue until the reset timeout is reached.  Another interrupt is triggered by hitting the reset count to clear the busy signal so that another transaction can be started.
 
