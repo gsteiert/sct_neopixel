@@ -29,6 +29,13 @@
 #include "fsl_sctimer.h"
 
 
+// fsl_clock.h definition
+#if (defined(LPC55S69_cm33_core0_SERIES) || defined(LPC55S66_cm33_core0_SERIES))
+#define KSCT0
+#endif
+
+
+
 //--------------------------------------------------------------------+
 // Variables
 //--------------------------------------------------------------------+
@@ -148,8 +155,13 @@ void sctpix_rmCh(uint32_t ch){
 }
 
 void sctpix_init(uint32_t neoPixelType) {
+#ifdef KSCT0 
   CLOCK_EnableClock(kCLOCK_Sct0);
   RESET_PeripheralReset(kSCT0_RST_SHIFT_RSTn);
+#else 
+  CLOCK_EnableClock(kCLOCK_Sct);
+  RESET_PeripheralReset(kSCT_RST_SHIFT_RSTn);
+#endif
 
 // Set start state based on pixel type (TBD)
   _sctpix_start = 23;
@@ -168,11 +180,11 @@ void sctpix_init(uint32_t neoPixelType) {
     SCT_CTRL_HALT_L(1) |
     SCT_CTRL_CLRCTR_L(1) );
 
-  NEO_SCT->MATCH[NEO_MATCH_RISE] = NEO_COUNT_RISE;
-  NEO_SCT->MATCH[NEO_MATCH_PERIOD] = NEO_COUNT_PERIOD;
-  NEO_SCT->MATCH[NEO_MATCH_0] = NEO_COUNT_FALL0;
-  NEO_SCT->MATCH[NEO_MATCH_1] = NEO_COUNT_FALL1;
-  NEO_SCT->MATCH[NEO_MATCH_RESET] = NEO_COUNT_RESET;
+  NEO_SCT->MATCH[NEO_MATCH_RISE] = 1;
+  NEO_SCT->MATCH[NEO_MATCH_PERIOD] = 1 + (SystemCoreClock / 800000);
+  NEO_SCT->MATCH[NEO_MATCH_0] = 1 + (SystemCoreClock / 3200000);
+  NEO_SCT->MATCH[NEO_MATCH_1] = 1 + (SystemCoreClock / 1600000);
+  NEO_SCT->MATCH[NEO_MATCH_RESET] = (SystemCoreClock / 12500);
   NEO_SCT->EV[NEO_EVENT_RISE].STATE = 0xFFFFFFFF;
   NEO_SCT->EV[NEO_EVENT_RISE].CTRL = (
     kSCTIMER_MatchEventOnly | SCT_EV_CTRL_MATCHSEL(NEO_MATCH_RISE) );

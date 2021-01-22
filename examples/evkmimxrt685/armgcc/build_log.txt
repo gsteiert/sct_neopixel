@@ -1,0 +1,25 @@
+Scanning dependencies of target neo_demo.elf
+[  4%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/sct_neopixel/examples/evkmimxrt685/neo_demo.c.obj
+[  8%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/sct_neopixel/sct_neopixel.c.obj
+[ 13%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/sct_neopixel/examples/evkmimxrt685/pin_mux.c.obj
+[ 17%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/boards/evkmimxrt685/clock_config.c.obj
+[ 21%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/boards/evkmimxrt685/board.c.obj
+[ 26%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/utilities/debug_console_lite/fsl_debug_console.c.obj
+[ 30%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/components/uart/fsl_adapter_usart.c.obj
+[ 34%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/drivers/flexcomm/fsl_flexcomm.c.obj
+[ 39%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/drivers/flexcomm/fsl_usart.c.obj
+[ 43%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/drivers/common/fsl_common.c.obj
+[ 47%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/devices/MIMXRT685S/drivers/fsl_power.c.obj
+[ 52%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/utilities/assert/fsl_assert.c.obj
+[ 56%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/devices/MIMXRT685S/drivers/fsl_reset.c.obj
+[ 65%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/boards/evkmimxrt685/flash_config/flash_config.c.obj
+[ 65%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/devices/MIMXRT685S/drivers/fsl_clock.c.obj
+[ 69%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/components/lists/fsl_component_generic_list.c.obj
+[ 73%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/devices/MIMXRT685S/system_MIMXRT685S_cm33.c.obj
+[ 78%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/drivers/flexspi/fsl_flexspi.c.obj
+[ 82%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/drivers/cache/cache64/fsl_cache.c.obj
+[ 95%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/utilities/misc_utilities/fsl_sbrk.c.obj
+[ 95%] Building C object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/drivers/lpc_gpio/fsl_gpio.c.obj
+[ 91%] Building ASM object CMakeFiles/neo_demo.elf.dir/mnt/c/Users/nxf58843/Development/gitproj/MCUX-SDK/devices/MIMXRT685S/gcc/startup_MIMXRT685S_cm33.S.obj
+[100%] Linking C executable debug/neo_demo.elf
+[100%] Built target neo_demo.elf
