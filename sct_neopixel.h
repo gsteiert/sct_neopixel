@@ -36,6 +36,11 @@
 //--------------------------------------------------------------------+
 // Neopixel Driver
 //--------------------------------------------------------------------+
+// NeoPixel Types
+#define NEO_RGB  ((0<<6) | (0<<4) | (1<<2) | (2)) ///< Transmit as R,G,B
+#define NEO_GRB  ((1<<6) | (1<<4) | (0<<2) | (2)) ///< Transmit as G,R,B
+#define NEO_RGBW ((3<<6) | (0<<4) | (1<<2) | (2)) ///< Transmit as R,G,B,W
+
 #define NEO_SCT           SCT0
 #define NEO_MATCH_RISE    12
 #define NEO_MATCH_PERIOD  13
@@ -115,6 +120,27 @@ bool sctpix_canShow(void);
   @param  color  The raw pixel value to be stored
 */
 void sctpix_setPixel(uint32_t ch, uint32_t pixel, uint32_t color);
+
+/*!
+  @brief  This sets the value of the respective pixel data
+  @param  ch  The channel of the pixel to be set
+  @param  pixel  The pixel in the specified channel
+  @param  r  8 bit red value to be stored
+  @param  g  8 bit green value to be stored
+  @param  b  8 bit blue value to be stored
+*/
+void sctpix_setPixelRGB(uint32_t ch, uint32_t pixel, uint8_t r, uint8_t g, uint8_t b);
+
+/*!
+  @brief  This sets the value of the respective pixel data
+  @param  ch  The channel of the pixel to be set
+  @param  pixel  The pixel in the specified channel
+  @param  r  8 bit red value to be stored
+  @param  g  8 bit green value to be stored
+  @param  b  8 bit blue value to be stored
+  @param  w  8 bit blue value to be stored
+*/
+void sctpix_setPixelRGBW(uint32_t ch, uint32_t pixel, uint8_t r, uint8_t g, uint8_t b, uint8_t w);
 
 /*!
   @brief  This will update the pixel type

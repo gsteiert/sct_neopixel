@@ -16,7 +16,7 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define NEOPIXEL_TYPE       0
+#define NEOPIXEL_TYPE       NEO_GRB
 #define NEOPIXEL_NUMBER     40
 #define NEOPIXEL_CH         9
 

@@ -43,6 +43,7 @@ uint32_t          *_sctpix_data[NEO_SCT_OUTPUTS];
 uint32_t          _sctpix_size[NEO_SCT_OUTPUTS];
 uint32_t          _sctpix_max_count = 0;
 uint32_t          _sctpix_start = 23;
+uint8_t           _sctpix_pixelType = NEO_GRB;
 volatile uint32_t _sctpix_count = 0;
 volatile bool     _sctpix_busy = false;
 bool              _sctpix_syncUpdate = true;
@@ -95,13 +96,56 @@ void SCT0_DriverIRQHandler(void){
 //--------------------------------------------------------------------+
 // User Functions
 //--------------------------------------------------------------------+
+void sctpix_setPixelRGB(uint32_t ch, uint32_t pixel, uint8_t r, uint8_t g, uint8_t b) {
+  if (pixel < _sctpix_size[ch]) {
+    switch (_sctpix_pixelType)
+    {
+    case NEO_RGB:
+      fiopix->pixelBuf[pixel] = (r << 16) | (g << 8) | (b);
+      break;
+    case NEO_GRB:
+    default:
+      fiopix->pixelBuf[pixel] = (r << 8) | (g << 16) | (b);
+      break;
+    }
+  }
+}
+
+void sctpix_setPixelRGBW(uint32_t ch, uint32_t pixel, uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
+  if (pixel < _sctpix_size[ch]) {
+    switch (_sctpix_pixelType)
+    {
+    case NEO_RGBW:
+      fiopix->pixelBuf[pixel] = (r << 24) | (g << 16) | (b << 8) | (w);
+      break;
+    default:
+      fiopix->pixelBuf[pixel] = 0;
+      break;
+    }
+  }
+}
+
 void sctpix_setPixel(uint32_t ch, uint32_t pixel, uint32_t color){
+  uint8_t w, r, g, b;
   if (ch < NEO_SCT_OUTPUTS) {
     if (pixel < _sctpix_size[ch]) {
       if (_sctpix_syncUpdate) {
         while (_sctpix_busy) { __NOP(); }
       }
-      _sctpix_data[ch][pixel] = color;
+      w = 0xFF & (color >> 24);
+      r = 0xFF & (color >> 16);
+      g = 0xFF & (color >> 8);
+      b = 0xFF & color;
+      switch (_sctpix_pixelType) {
+        case NEO_RGBW:
+          sctpix_setPixelRGBW(ch, pixel, r, g, b, w);
+          break;
+        case NEO_RGB:
+        case NEO_GRB:
+        default:
+          sctpix_setPixelRGB(ch, pixel, r, g, b);
+          break;
+      }
     }
   }
 }
@@ -164,7 +208,17 @@ void sctpix_init(uint32_t neoPixelType) {
 #endif
 
 // Set start state based on pixel type (TBD)
-  _sctpix_start = 23;
+  _sctpix_pixelType = neoPixelType;
+  switch (_sctpix_pixelType) {
+    case NEO_RGBW:
+      _sctpix_start = 31;
+      break;
+    case NEO_GRB:
+    case NEO_RGB:
+    default:
+      _sctpix_start = 23;
+      break;
+  }
   _sctpix_max_count = 0;
   _sctpix_syncUpdate = true;
   for (uint32_t i=0; i < NEO_SCT_OUTPUTS; i++) {
