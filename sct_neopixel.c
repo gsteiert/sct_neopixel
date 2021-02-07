@@ -198,16 +198,7 @@ void sctpix_rmCh(uint32_t ch){
   }
 }
 
-void sctpix_init(uint32_t neoPixelType) {
-#ifdef KSCT0 
-  CLOCK_EnableClock(kCLOCK_Sct0);
-  RESET_PeripheralReset(kSCT0_RST_SHIFT_RSTn);
-#else 
-  CLOCK_EnableClock(kCLOCK_Sct);
-  RESET_PeripheralReset(kSCT_RST_SHIFT_RSTn);
-#endif
-
-// Set start state based on pixel type (TBD)
+void sctpix_updateType(uint32_t neoPixelType) {
   _sctpix_pixelType = neoPixelType;
   switch (_sctpix_pixelType) {
     case NEO_RGBW:
@@ -219,6 +210,18 @@ void sctpix_init(uint32_t neoPixelType) {
       _sctpix_start = 23;
       break;
   }
+}
+
+void sctpix_init(uint32_t neoPixelType) {
+#ifdef KSCT0 
+  CLOCK_EnableClock(kCLOCK_Sct0);
+  RESET_PeripheralReset(kSCT0_RST_SHIFT_RSTn);
+#else 
+  CLOCK_EnableClock(kCLOCK_Sct);
+  RESET_PeripheralReset(kSCT_RST_SHIFT_RSTn);
+#endif
+
+  sctpix_updateType(neoPixelType);
   _sctpix_max_count = 0;
   _sctpix_syncUpdate = true;
   for (uint32_t i=0; i < NEO_SCT_OUTPUTS; i++) {
