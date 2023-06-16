@@ -148,6 +148,8 @@ void sctpix_rmCh(uint32_t ch){
 }
 
 void sctpix_init(uint32_t neoPixelType) {
+  (void) neoPixelType;
+  
   CLOCK_EnableClock(kCLOCK_Sct0);
   RESET_PeripheralReset(kSCT0_RST_SHIFT_RSTn);
 
